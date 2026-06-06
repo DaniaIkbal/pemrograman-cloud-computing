@@ -3,331 +3,676 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil SI 23C1 - UDB Surakarta</title>
+    <title>SI 23C1 - UDB Surakarta Advanced Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* --- CSS STYLING --- */
+        /* --- CSS VARIABLES (SUPPORT THEMING) --- */
         :root {
-            --primary-color: #0f4c81; /* Biru khas korporat/kampus */
-            --secondary-color: #f5b041; /* Aksen kuning/oranye */
-            --dark-color: #2c3e50;
-            --light-color: #f8f9fa;
+            --bg-primary: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --accent: #f59e0b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 20px -2px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-surface: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #7dd3fc;
+            --border-color: #334155;
+            --shadow: 0 4px 20px -2px rgba(0,0,0,0.3);
+        }
+
+        /* --- BASE STYLES --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            line-height: 1.6;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            transition: var(--transition);
+            overflow-x: hidden;
         }
 
-        /* Navbar */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        /* --- NAVBAR --- */
         nav {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
+            transition: var(--transition);
+        }
+        [data-theme="dark"] nav {
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            height: 70px;
         }
 
-        nav .logo {
-            font-weight: bold;
-            font-size: 1.4rem;
-        }
-
-        nav ul {
+        .logo {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary);
             display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
             list-style: none;
+            gap: 24px;
         }
 
-        nav ul li {
-            margin-left: 20px;
-        }
-
-        nav ul li a {
-            color: white;
+        .nav-links a {
+            color: var(--text-main);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: var(--transition);
         }
 
-        nav ul li a:hover {
-            color: var(--secondary-color);
+        .nav-links a:hover {
+            color: var(--primary);
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(15, 76, 129, 0.8), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-main);
             font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 100px 0 8px 0;
+            display: flex;
+            align-items: center;
+            min-height: calc(85vh - 70px);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 32px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
         }
 
         .btn {
-            background-color: var(--secondary-color);
-            color: var(--dark-color);
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
             text-decoration: none;
-            transition: transform 0.2s, background-color 0.3s;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
         }
 
-        .btn:hover {
-            transform: scale(1.05);
-            background-color: #e59866;
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
         }
 
-        /* Container & Sections */
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 40px 20px;
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
         }
 
-        section {
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .hero-img img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* --- COUNTER / STATS --- */
+        .stats-section {
             padding: 60px 0;
-            border-bottom: 1px solid #e0e0e0;
+            background-color: var(--bg-surface);
+            border-y: 1px solid var(--border-color);
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            color: var(--primary-color);
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: var(--secondary-color);
-            margin: 10px auto 0;
-        }
-
-        /* Tentang / Visi Misi */
-        .about-box {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-
-        /* Grid Anggota / Struktur */
-        .grid {
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
             text-align: center;
-            padding: 20px;
-            transition: translateY 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
         }
 
-        .card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 3px solid var(--primary-color);
-        }
-
-        .card h3 {
-            margin-bottom: 5px;
-        }
-
-        .card p {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-
-        /* Kontak / Sapaan */
-        .contact-form {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
+        .stat-item p {
+            color: var(--text-muted);
             font-weight: 500;
         }
 
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        /* --- SECTION STRUCTURE --- */
+        section {
+            padding: 100px 0;
         }
 
-        /* Footer */
-        footer {
-            background-color: var(--dark-color);
-            color: white;
+        .section-title {
             text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
+            max-width: 600px;
+            margin: auto auto 60px auto;
         }
 
-        /* Responsive */
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        /* --- INTERACTIVE DIRECTORY (MEMBERS) --- */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            color: var(--text-main);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-main);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 32px;
+        }
+
+        .member-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 20px auto;
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border-color);
+        }
+
+        .badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .member-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 4px;
+        }
+
+        .member-card .role {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- MODAL EFFECT --- */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-surface);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            transform: scale(0.8);
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px; right: 16px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* --- ANIMATION ON SCROLL EFFECTS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-            }
-            nav ul {
-                margin-top: 10px;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .cta-buttons { justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr; gap: 32px; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .search-box { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">SI 23C1 - UDB</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#tentang">Tentang</a></li>
-            <li><a href="#struktur">Struktur</a></li>
-            <li><a href="#kontak">Kontak</a></li>
-        </ul>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i> SI 23C1
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#directory">Anggota</a></li>
+                <li><button class="theme-toggle" id="themeBtn"><i class="fa-solid fa-moon"></i></button></li>
+            </ul>
+        </div>
     </nav>
 
-    <header id="home" class="hero">
-        <h1>Sistem Informasi 23C1</h1>
-        <p>Universitas Duta Bangsa Surakarta. Wadah inovasi, kolaborasi, dan mencetak generasi teknologi masa depan.</p>
-        <button class="btn" onclick="pelajariLebihLanjut()">Eksplor Kelas</button>
+    <header id="home" class="container hero">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <h1>Membangun Masa Depan Lewat <span>Sistem Informasi</span></h1>
+                <p>Website Resmi Mahasiswa Sistem Informasi Kelas 23C1 Universitas Duta Bangsa Surakarta. Komunitas pembelajar tech-savvy yang berdedikasi membangun sinergi bisnis dan teknologi.</p>
+                <div class="cta-buttons">
+                    <a href="#directory" class="btn btn-primary">Lihat Anggota <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#about" class="btn btn-secondary">Kenali Kami</a>
+                </div>
+            </div>
+            <div class="hero-img">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" alt="Tech Interaction Workspace">
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        
-        <section id="tentang">
-            <h2>Tentang Kelas Kami</h2>
-            <div class="about-box">
-                <p>Kami adalah mahasiswa program studi <strong>Sistem Informasi</strong> angkatan 2023 (Kelas C1) di Universitas Duta Bangsa Surakarta. Berbekal semangat belajar yang tinggi, kami berfokus pada integrasi teknologi informasi dengan proses bisnis untuk menghasilkan solusi digital yang solutif.</p>
+    <div class="stats-section">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3 class="counter" data-target="38">0</h3>
+                <p>Mahasiswa Aktif</p>
             </div>
-        </section>
-
-        <section id="struktur">
-            <h2>Struktur Organisasi</h2>
-            <div class="grid">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Ketua Kelas">
-                    <h3>Nama Ketua</h3>
-                    <p>Ketua Kelas</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Wakil Ketua">
-                    <h3>Nama Wakil</h3>
-                    <p>Wakil Ketua Kelas</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80" alt="Sekretaris">
-                    <h3>Nama Sekretaris</h3>
-                    <p>Sekretaris</p>
-                </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80" alt="Bendahara">
-                    <h3>Nama Bendahara</h3>
-                    <p>Bendahara</p>
-                </div>
+            <div class="stat-item">
+                <h3 class="counter" data-target="12">0</h3>
+                <p>Proyek Selesai</p>
             </div>
-        </section>
-
-        <section id="kontak">
-            <h2>Hubungi Kami</h2>
-            <div class="contact-form">
-                <form id="formPesan">
-                    <div class="form-group">
-                        <label for="nama">Nama Anda:</label>
-                        <input type="text" id="nama" required placeholder="Masukkan nama...">
-                    </div>
-                    <div class="form-group">
-                        <label for="pesan">Pesan untuk SI 23C1:</label>
-                        <textarea id="pesan" rows="4" required placeholder="Tuliskan pesan atau saran..."></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">Kirim Pesan</button>
-                </form>
+            <div class="stat-item">
+                <h3 class="counter" data-target="4">0</h3>
+                <p>Fokus Kompetensi</p>
             </div>
-        </section>
-
+        </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 SI 23C1 - Universitas Duta Bangsa Surakarta. All Rights Reserved.</p>
+    <section id="about" class="container reveal">
+        <div class="section-title">
+            <h2>Tentang Kelas</h2>
+            <p>Mengenal lebih dekat visi, misi, dan identitas akademik SI 23C1 Universitas Duta Bangsa.</p>
+        </div>
+        <div style="background-color: var(--bg-surface); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+            <p style="font-size: 1.1rem; line-height: 1.8; text-align: center; color: var(--text-muted);">
+                Dibentuk pada tahun 2023, kelas SI 23C1 di UDB Surakarta bukan sekadar kumpulan mahasiswa, melainkan ekosistem kolaboratif. Kami mempelajari analisis data, manajemen infrastruktur IT, rekayasa perangkat lunak, hingga strategi bisnis digital demi menjawab tantangan era Industri 4.0 dan Society 5.0.
+            </p>
+        </div>
+    </section>
+
+    <section id="directory" class="container reveal">
+        <div class="section-title">
+            <h2>Direktori Anggota</h2>
+            <p>Gunakan fitur pencarian cerdas dan filter untuk menemukan profil entitas kelas kami.</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Cari nama atau jabatan...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="core">Inti Pengurus</button>
+                <button class="filter-btn" data-filter="member">Anggota</button>
+            </div>
+        </div>
+
+        <div class="cards-grid" id="cardsGrid">
+            </div>
+    </section>
+
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div id="modalBody">
+                </div>
+        </div>
+    </div>
+
+    <footer style="background-color: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 30px 0; text-align: center; margin-top: 50px;">
+        <p style="color: var(--text-muted); font-size: 0.95rem;">&copy; 2026 SI 23C1 &bull; Universitas Duta Bangsa Surakarta. Dirancang dengan penuh dedikasi.</p>
     </footer>
 
     <script>
-        // Interaktivitas tombol Hero
-        function pelajariLebihLanjut() {
-            document.getElementById('tentang').scrollIntoView({ behavior: 'smooth' });
+        // DATA MAHASISWA (Complex Object Array Simulation)
+        const membersData = [
+            { id: 1, name: "Aris Setyawan", role: "Ketua Kelas", category: "core", quote: "Pimpinan yang melayani dengan dedikasi.", ig: "#", avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150" },
+            { id: 2, name: "Bunga Lestari", role: "Wakil Ketua", category: "core", quote: "Detail oriented, menyelaraskan visi kelas.", ig: "#", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" },
+            { id: 3, name: "Chandra Wijaya", role: "Sekretaris", category: "core", quote: "Dokumentasi rapi adalah kunci administrasi sukses.", ig: "#", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" },
+            { id: 4, name: "Dina Amalia", role: "Bendahara", category: "core", quote: "Mengelola finansial dengan transparansi penuh.", ig: "#", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150" },
+            { id: 5, name: "Eko Prasetyo", role: "Full-Stack Student", category: "member", quote: "Mengubah secangkir kopi menjadi baris kode bernilai.", ig: "#", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" },
+            { id: 6, name: "Fitri Rahayu", role: "UI/UX Enthusiast", category: "member", quote: "Desain yang baik membuat sistem mudah dicintai.", ig: "#", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150" }
+        ];
+
+        // RENDER CARDS
+        const cardsGrid = document.getElementById('cardsGrid');
+
+        function displayMembers(data) {
+            cardsGrid.innerHTML = '';
+            if(data.length === 0) {
+                cardsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Data tidak ditemukan.</p>`;
+                return;
+            }
+            data.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'member-card';
+                card.setAttribute('onclick', `openProfile(${member.id})`);
+                card.innerHTML = `
+                    <div class="avatar-wrapper">
+                        <img src="${member.avatar}" alt="${member.name}">
+                        <span class="badge">${member.category === 'core' ? 'Core' : 'Staff'}</span>
+                    </div>
+                    <h3>${member.name}</h3>
+                    <div class="role">${member.role}</div>
+                    <div class="social-links">
+                        <a href="${member.ig}"><i class="fa-brands fa-instagram fa-lg"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+                    </div>
+                `;
+                cardsGrid.appendChild(card);
+            });
         }
 
-        // Penanganan Formulir Kontak
-        document.getElementById('formPesan').addEventListener('submit', function(event) {
-            event.preventDefault(); // Mencegah reload halaman saat submit
-            
-            const nama = document.getElementById('nama').value;
-            const pesan = document.getElementById('pesan').value;
+        // INITIAL RUN
+        displayMembers(membersData);
 
-            // Memunculkan alert interaktif
-            alert(`Halo ${nama}! Terima kasih telah mengirimkan pesan: "${pesan}". Salam kompak dari SI 23C1!`);
-            
-            // Reset form setelah dikirim
-            this.reset();
+        // LIVE SEARCH & FILTER COMBINATION
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let currentFilter = 'all';
+
+        function filterAndSearch() {
+            const searchValue = searchInput.value.toLowerCase();
+            const filtered = membersData.filter(member => {
+                const matchesSearch = member.name.toLowerCase().includes(searchValue) || member.role.toLowerCase().includes(searchValue);
+                const matchesFilter = currentFilter === 'all' || member.category === currentFilter;
+                return matchesSearch && matchesFilter;
+            });
+            displayMembers(filtered);
+        }
+
+        searchInput.addEventListener('input', filterAndSearch);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentFilter = e.target.getAttribute('data-filter');
+                filterAndSearch();
+            });
         });
+
+        // DETAILED MODAL LOGIC
+        const modal = document.getElementById('profileModal');
+        const modalBody = document.getElementById('modalBody');
+
+        function openProfile(id) {
+            const member = membersData.find(m => m.id === id);
+            modalBody.innerHTML = `
+                <img src="${member.avatar}" style="width:120px; height:120px; border-radius:50%; object-fit:cover; margin-bottom:20px; border:4px solid var(--primary);">
+                <h2>${member.name}</h2>
+                <p style="color: var(--primary); font-weight:600; margin-bottom:15px;">${member.role}</p>
+                <p style="font-style: italic; color: var(--text-muted); background: var(--bg-primary); padding:15px; border-radius:8px;">"${member.quote}"</p>
+            `;
+            modal.classList.add('active');
+        }
+
+        document.getElementById('closeModal').addEventListener('click', () => modal.classList.remove('active'));
+        window.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+        // THEME TOGGLE (DARK MODE) MANAGEMENT
+        const themeBtn = document.getElementById('themeBtn');
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if(currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeBtn.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeBtn.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+            }
+        });
+
+        // ANIMATED COUNTERS ENGINE
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const speed = 200; // Ubah nilai untuk kecepatan animasi
+                const inc = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + inc);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            updateCount();
+        });
+
+        // SMOOTH ON-SCROLL REVEAL ENGINE (INTERSECTION OBSERVER)
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
